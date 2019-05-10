@@ -1,18 +1,16 @@
 require './cards.rb'
+require './aces.rb'
 
-#make aces = 11 or 1
 
 
-# give ability to hit.
 
 
 class BlackJack
   def initialize
-    start_game
+    player
   end
   def player
-    j, q, k, a = 10, 10, 10, 11
-    hand = a + a
+    hand = 11 + 11
     if hand == 21
       puts "you win"
     elsif hand < 21
