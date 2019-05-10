@@ -4,9 +4,14 @@ require "colorize"
 
 class Roulette
   def initialize
+    attr_accessor :wallet
     @roulette_wheel_colors = ["red", "black"]
     @roulette_wheel_numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 28, 30, 31, 32, 33, 34, 34, 35]
+    @roulette_wheel_hash = {1: "red", 2: "black", 3: "red", 4: "black", 5: "red", 6: "black", 7: "red", 8: "black", 9: "red", 10: "black", 11: "red", 12: "black", 13: "red", 14: "black", 15: "red", 16: "black", 17: "red", 18: "black", 19: "red", 20: "black", 21: "red"
+
+    }
     #WILL WORK ON '0' AND '00 LATER'
+    binding.pry
     game_menu
   end
   def game_menu
@@ -30,7 +35,7 @@ class Roulette
     puts "How much money do you want to bet?"
     user_bet = gets.strip
     user_bet == 'help' ? help_menu : nil
-    if user_bet > @wallet
+    if user_bet.to_i > @wallet
       puts "You don't have enough money for that bet"
       help_menu
     end
