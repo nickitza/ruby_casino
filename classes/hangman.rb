@@ -1,5 +1,6 @@
 require 'colorize'
 require 'pry'
+# require_relative
 
 class Hangman
   def initialize
@@ -7,6 +8,7 @@ class Hangman
   end
 
   def stars
+    puts "******".colorize(:yellow) * 2
     puts "******".colorize(:yellow) * 2
   end
 
@@ -20,9 +22,29 @@ class Hangman
     gets.strip
   end
 
-  def new_game
-    puts "new game started."
+  def start_game
+    clear
+    puts "Your word is being generated."
+    sleep(2)
+    puts "..."
+    pick_word
+    puts @game_word
+    word_arr = @game_word.chars.to_a
+    user_guesses_left = @game_word.length
+    puts "Your word has been chosen. "
+    puts "Guess one letter you think is in your word."
+    puts "You have #{user_guesses_left} guesses left."
+    puts "Choose your letter wisely!"
+    user_guess = gets.strip
+    if user_guess.length == 1
+      
+    else
+      puts "Please choose one letter to guess."
+    end
+    # binding.pry
   end
+
+
 
   def exit_to_casino
     puts "code an exit here"
@@ -32,17 +54,17 @@ class Hangman
   def main_menu 
     still_running = true
     while still_running
-      clear
+      # clear
       stars
-      puts "  HANGMAN  ".colorize(:color => :black, :background => :white)
+      puts "  HANGMAN  "
       stars 
       user_choice = get_menu_choice 
       case user_choice
         when "1"
-          clear
-          new_game
+          start_game
         when "2"
           exit_to_casino
+          still_running = false
         else
           clear
           stars
@@ -54,6 +76,9 @@ class Hangman
           gets
       end
     end
+  end
+
+  def add_word
   end
 
 
@@ -95,7 +120,7 @@ class Hangman
       "obtain",
       "vampire"
     ]
-    game_word = @words.sample
+    @game_word = @words.sample
   end
 
 end
