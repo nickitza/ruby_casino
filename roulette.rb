@@ -1,4 +1,4 @@
-class Routlette
+class Roulette
   def initialize
     
   end
