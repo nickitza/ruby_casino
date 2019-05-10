@@ -6,6 +6,7 @@ class Player
     end
 end
 
+<<<<<<< HEAD
 # class Games 
 #     attr_accessor :name
 #     def initialize(name)
@@ -42,3 +43,5 @@ def main_menu
     end
 end
 
+=======
+>>>>>>> ae4d6a9796a4a8506539008fa12b7dda059bcc7f
