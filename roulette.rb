@@ -30,7 +30,10 @@ class Roulette
     puts "How much money do you want to bet?"
     user_bet = gets.strip
     user_bet == 'help' ? help_menu : nil
-    #CONDITIONAL NEEDED TO SEE IF USER HAS ENOUGH MONEY AND TAKE OUT OF WALLET
+    if user_bet > @wallet
+      puts "You don't have enough money for that bet"
+      help_menu
+    end
     game_play(user_bet)
     
   end
@@ -49,15 +52,21 @@ class Roulette
       # wheel_spinning
       if is_black? == true
         puts "you lose"
-        puts "Ball landed #{ball_landed}"
       else 
+        puts "you win"
+        puts "Ball landed #{ball_landed}, #{is_black?}"
+      end
+      game_play(bet)
+    when 2
+      puts "You are betting $#{bet} on Black"
+      # wheel_spinning
+      if is_black? == false
+        puts "you lose"
+        puts "Ball landed #{ball_landed}"
+      else
         puts "you win"
         puts "Ball landed #{ball_landed}"
       end
-      game_play(bet)
-      
-    when 2
-      puts "You are betting $#{bet} on Black"
       
     when 3
       puts "You are betting $#{bet} on Evens"
