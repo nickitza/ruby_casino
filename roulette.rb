@@ -4,14 +4,12 @@ require "colorize"
 
 class Roulette
   def initialize
-    attr_accessor :wallet
+    # attr_accessor 
     @roulette_wheel_colors = ["red", "black"]
     @roulette_wheel_numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 28, 30, 31, 32, 33, 34, 34, 35]
-    @roulette_wheel_hash = {1: "red", 2: "black", 3: "red", 4: "black", 5: "red", 6: "black", 7: "red", 8: "black", 9: "red", 10: "black", 11: "red", 12: "black", 13: "red", 14: "black", 15: "red", 16: "black", 17: "red", 18: "black", 19: "red", 20: "black", 21: "red"
-
-    }
+    @roulette_wheel_hash = [{1 => "red"}, {2 => "black"}, {3 => "red"}, {4 => "black"}, {5 => "red"},{6 => "black"}, {7 => "red"}, {8 => "black"}, {9 => "red"}, {10 => "black"}, {11 => "red"}, {12 => "black"}, {13 => "red"}, {14 => "black"}, {15 => "red"}, {16 => "black"}, {17 => "red"}, {18 => "black"}, {19 => "red"}, {20 => "black"}, {21 => "red"},{22 => "black"}, {23 => "red"}, {24 => "black"}, {25 => "red"}, {26 => "black"}, {27 => "red"}, {28 => "black"}, {29 => "red"}, {30 => "black"}, {31 => "red"}, {32 => "black"}, {33 => "red"}, {34 => "black"}, {35 => "red"}, {36 => "black"},
+    ]
     #WILL WORK ON '0' AND '00 LATER'
-    binding.pry
     game_menu
   end
   def game_menu
@@ -35,10 +33,10 @@ class Roulette
     puts "How much money do you want to bet?"
     user_bet = gets.strip
     user_bet == 'help' ? help_menu : nil
-    if user_bet.to_i > @wallet
-      puts "You don't have enough money for that bet"
-      help_menu
-    end
+    # if user_bet.to_i > @wallet
+    #   puts "You don't have enough money for that bet"
+    #   help_menu
+    # end
     game_play(user_bet)
     
   end
@@ -55,45 +53,24 @@ class Roulette
     when 1
       puts "You are betting $#{bet} on Red"
       # wheel_spinning
-      if is_black? == true
+      ball_landed
+      binding.pry
+      if ball_landed[0] == "black"
         puts "you lose"
       else 
         puts "you win"
-        puts "Ball landed #{ball_landed}, #{is_black?}"
+        puts "Ball landed #{ball_landed.keys[0]}, #{ball_landed.values[0]}"
       end
       game_play(bet)
-    when 2
-      puts "You are betting $#{bet} on Black"
-      # wheel_spinning
-      if is_black? == false
-        puts "you lose"
-        puts "Ball landed #{ball_landed}"
-      else
-        puts "you win"
-        puts "Ball landed #{ball_landed}"
-      end
-      
-    when 3
-      puts "You are betting $#{bet} on Evens"
-      
-    when 4
-      puts "You are betting $#{bet} on Odds"
-      
     end
-
+    
   end
-
+  
   #ROULETTE WHEEL
-  def is_even?
-    @roulette_wheel_numbers.sample.even?
-  end
-
-  def is_black?
-    @roulette_wheel_colors.sample == "black"
-  end
-
+  
   def ball_landed
-    return @roulette_wheel_numbers.sample
+    ball_landed_on = @roulette_wheel_hash.sample
+    ball_landed = ball_landed_on
   end
   
   
