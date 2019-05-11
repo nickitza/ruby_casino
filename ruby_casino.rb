@@ -1,12 +1,22 @@
-class Player
-    attr_accessor :name, :wallet
-    def initialize(name, wallet)
-        @player = name
-        @running_total = wallet
-    end
-end
+# class Player
+#     attr_accessor :name, $wallet
+#     def initialize(name,$wallet)
+#         @player = name
+#         $wallet =$wallet
+#     end
+# end
 
-<<<<<<< HEAD
+require 'require_all'
+
+#require_all 'classes'
+
+#require_relative 'roulette.rb'
+
+require_relative 'classes/roulette.rb'
+require_relative 'classes/player.rb'
+
+# Dir[File.join("classes", 'lib', '*.rb')].each { |file| require file }
+
 # class Games 
 #     attr_accessor :name
 #     def initialize(name)
@@ -18,30 +28,40 @@ end
 @games = ["Blackjack", "Hangman", "Slot Machine", "Roulette", "Keno"]
 
 puts "Welcome to Our Casino." 
-def main_menu
-    puts "What game would you like to play?"
-    @games.each_with_index do |game, i|
-        puts "#{i + 1}. #{dish[:name]}"
-    end
-    input = gets.strip.to_i
-    # raise unless input > 0 && input <= @games.lenth
-    #     end
-    class input 
-        when "1"
-            #blackjack
-        when "2"
-            #hangman
-        when "3"
-            #slot_machine
-        when "4"
-            #roulette  
-        when "5"
-            #keno
-        else
-            puts "invalid input. try again"
-            main_menu
-    end
+# def main_menu
+#     puts "What game would you like to play?"
+#     @games.each_with_index do |game, i|
+#         puts "#{i + 1}. #{dish[:name]}"
+#     end
+#     input = gets.strip.to_i
+#     # raise unless input > 0 && input <= @games.lenth
+#     #     end
+#     class input 
+#         when "1"
+#             #blackjack
+#         when "2"
+#             #hangman
+#         when "3"
+#             #slot_machine
+#         when "4"
+#             roulette  
+#         when "5"
+#             #keno
+#         else
+#             puts "invalid input. try again"
+#             main_menu
+#     end
+# end
+
+$wallet
+
+player(:name).new = frank
+player(:wallet).new = 120
+$wallet = player(:wallet)
+
+
+def play_roulette 
+    roulette
 end
 
-=======
->>>>>>> ae4d6a9796a4a8506539008fa12b7dda059bcc7f
+play_roulette
