@@ -1,9 +1,11 @@
 require "pry"
 require "colorize"
-# require_relative 'ruby_casino'
+require_relative "player"
+require_relative '../ruby_casino'
 
 class Roulette
   def initialize
+<<<<<<< HEAD
     # attr_accessor 
     @wallet = 100
     # @roulette_wheel_colors = ["red", "black"]
@@ -19,11 +21,20 @@ class Roulette
       {30 => "black"}, {31 => "red"}, {32 => "black"}, {33 => "red"}, 
       {34 => "black"}, {35 => "red"}, {36 => "black"},
     ]
+=======
+    attr_accessor :roulette_wallet
+    roulette_wallet = $wallet
+  end
+  def initialize
+    @roulette_wheel_colors = ["red", "black"]
+    @roulette_wheel_numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 28, 30, 31, 32, 33, 34, 34, 35]
+    #WILL WORK ON '0' AND '00 LATER'
+>>>>>>> cc7648425dbf7b8a42070aba11973cf9f96a73b1
     game_menu
   end
   def game_menu
     puts "------ROULETTE------"
-    puts "Welcome #{@player}, you currently have $#{@wallet}"
+    puts "Welcome #{@player}, you currently have $#{$wallet}"
     puts "Type 'help' at any time for rules"
     puts "type 'play' to start playing."
     prompt
@@ -43,12 +54,20 @@ class Roulette
     #ADD VIEW WALLET CHOICE HERE
     user_bet = gets.strip
     user_bet == 'help' ? help_menu : nil
+<<<<<<< HEAD
     if user_bet.to_i > @wallet
       puts "You don't have enough money for that bet"
       help_menu
     end
     @wallet -= user_bet.to_i
     game_play(user_bet.to_i)
+=======
+    #CONDITIONAL NEEDED TO SEE IF USER HAS ENOUGH MONEY AND TAKE OUT OF WALLET
+    if user_bet.to_i > $wallet
+      puts "not enough moneh"
+    end
+    game_play(user_bet)
+>>>>>>> cc7648425dbf7b8a42070aba11973cf9f96a73b1
     
   end
 

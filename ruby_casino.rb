@@ -1,47 +1,22 @@
-class Player
-    attr_accessor :name, :wallet
-    def initialize(name, wallet)
-        @player = name
-        @running_total = wallet
-    end
-end
+#require_all 'classes'
 
-<<<<<<< HEAD
-# class Games 
-#     attr_accessor :name
-#     def initialize(name)
-#         @games << 
-#         @games = ["Blackjack", "Hangman", "Slot Machine", "Roulette"]
-#     end
-# end 
+# require_relative 'classes/roulette.rb'
+# require_relative 'classes/player.rb'
 
-@games = ["Blackjack", "Hangman", "Slot Machine", "Roulette", "Keno"]
+#casino 
+    #requires player
+    #cashier here
+    #game menu here
 
-puts "Welcome to Our Casino." 
-def main_menu
-    puts "What game would you like to play?"
-    @games.each_with_index do |game, i|
-        puts "#{i + 1}. #{dish[:name]}"
-    end
-    input = gets.strip.to_i
-    # raise unless input > 0 && input <= @games.lenth
-    #     end
-    class input 
-        when "1"
-            #blackjack
-        when "2"
-            #hangman
-        when "3"
-            #slot_machine
-        when "4"
-            #roulette  
-        when "5"
-            #keno
-        else
-            puts "invalid input. try again"
-            main_menu
-    end
-end
+#player 
+    #requires wallet
 
-=======
->>>>>>> ae4d6a9796a4a8506539008fa12b7dda059bcc7f
+#wallet 
+    # initialize 
+    #view balance
+    # increase balance(amt)
+    # decrease balance(amt)
+
+# increase_balance(amt)
+# decrease_balance(amt)
+

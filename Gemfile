@@ -4,3 +4,5 @@ source "https://rubygems.org"
 
 gem "pry"
 gem "colorize"
+gem "require_all"
+gem "sounder"
