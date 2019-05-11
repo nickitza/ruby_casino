@@ -1,12 +1,12 @@
 require 'colorize'
 require 'pry'
-# require_relative
+# require_relative ~/Documents/dpl/week1/friday/ruby_casino.rb
 
 class Hangman
   attr_accessor :letters_left
   def initialize
     @letters_left = ('a'..'z').to_a.join(" ")
-    @user_guess_arr = []
+    @user_word = ""
     main_menu
 
   end
@@ -53,6 +53,8 @@ class Hangman
     # sleep(2)
     pick_word
     @word_arr = @game_word.chars.to_a
+    @user_word = "_" * @word_arr.length
+    @user_word = @user_word.chars.to_a
     puts "Your word has been chosen. "
     puts @game_word
     puts "Guess one letter you think is in your word."
@@ -67,9 +69,7 @@ class Hangman
   end
 
   def get_guess
-    print_right_guesses
     puts
-    # puts "__ " * @game_word.length
     puts "Which letter would you like to choose?"
     puts @letters_left
     @user_guess = gets.strip.downcase
@@ -89,37 +89,28 @@ class Hangman
 
   def right_guess
     remove_letter
+    clear
     puts "Hooray!! You're right! That letter is in the word!"
     @word_arr.each_with_index do |w, i|
       if @word_arr[i].include?(@user_guess)
-        @user_guess_arr << @user_guess
-        print @user_guess + " "
-      else
-        print "_ "
+        @user_word[i] = @user_guess
+        else
       end
     end
-    puts
+    print @user_word.join(" ")
   end
 
   def wrong_guess
     remove_letter
+    clear
     @guesses_left -= 1
     puts "Oh no! That letter is not in your word!"
-    puts "You have #{@guesses_left} guesses left."    
+    puts "You have #{@guesses_left} guesses left."
+    print @user_word.join(" ")    
   end
 
   def remove_letter
     @letters_left = @letters_left.delete(@user_guess)
-  end
-
-  def print_right_guesses
-    @word_arr.each_with_index do |w, i|
-      if w.any? {|c| @user_guess_arr.include?(c) }
-        print @word_arr[i]
-      else
-        print "_ "
-      end
-    end
   end
 
   # foods.any? {|food| cheeses.include?(food) }
