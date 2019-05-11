@@ -1,6 +1,6 @@
 require 'colorize'
 require 'pry'
-# require_relative ~/Documents/dpl/week1/friday/ruby_casino.rb
+# require_relative '~/Documents/dpl/week1/friday/ruby_casino/ruby_casino.rb'
 
 class Hangman
   attr_accessor :letters_left
@@ -69,22 +69,26 @@ class Hangman
   end
 
   def get_guess
-    puts
-    puts "Which letter would you like to choose?"
-    puts @letters_left
-    @user_guess = gets.strip.downcase
-    if @user_guess.length == 1
-      if @word_arr.include?(@user_guess)
-        right_guess
-        get_guess
+    while !game_over
+      puts
+      puts
+      puts "Which of the available letters would you like to choose?"
+      puts @letters_left
+      @user_guess = gets.strip.downcase
+      if @user_guess.length == 1
+        if @word_arr.include?(@user_guess)
+          right_guess
+          get_guess
+          else
+            wrong_guess
+            get_guess
+        end
         else
-          wrong_guess
+          puts "Please choose one letter to guess."
           get_guess
       end
-      else
-        puts "Please choose one letter to guess."
-        get_guess
     end
+    game_end
   end
 
   def right_guess
@@ -113,11 +117,40 @@ class Hangman
     @letters_left = @letters_left.delete(@user_guess)
   end
 
-  # foods.any? {|food| cheeses.include?(food) }
+  def game_over
+    (@guesses_left == 0) || (@user_word.eql?(@word_arr))
+  end
 
+  
+  def game_end
+    if @guesses_left == 0
+      puts
+      puts "GAME OVER".colorize(:red)
+      puts "You ran out of guesses! Your man hangs!"
+      hang_ascii
+      puts "Press enter to return to the main menu.".colorize(:red)
+      gets
+      reset
+      main_menu
+      else
+      puts "\nCONGRATULATIONS!".colorize(:green)
+      puts "You guessed the word! Your man goes free!"
+      puts "Press enter to return to the main menu.".colorize(:red)
+      gets
+      reset
+      main_menu
+      end
+  end
+
+  def reset
+    @letters_left = ('a'..'z').to_a.join(" ")
+    @user_word = ""
+  end
 
   def exit_to_casino
-    puts "code an exit here"
+    puts "We hope to see you again soon! Goodbye!"
+    Casino.main_menu
+
   end
 
   def add_word
