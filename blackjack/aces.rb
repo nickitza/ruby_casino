@@ -10,7 +10,7 @@ class Eleven
   end
 end
 
-class One < Ace
+class One < Eleven
   def initialize
     ace
   end
