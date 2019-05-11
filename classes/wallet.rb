@@ -6,10 +6,10 @@ class Wallet
         puts
         puts "Your current balance is #{@wallet}"
     end
-    def increase_balance(amount)
-        @wallet += amount
-    end
     def decrease_balance(amount)
         @wallet -= amount  
+    end
+    def increase_balance(amount)
+        @wallet += amount
     end
 end
