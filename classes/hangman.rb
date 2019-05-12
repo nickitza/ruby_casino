@@ -1,6 +1,6 @@
 require 'colorize'
 require 'pry'
-# require_relative '~/Documents/dpl/week1/friday/ruby_casino/ruby_casino.rb'
+# require 'ruby_casino'
 
 class Hangman
   attr_accessor :letters_left
@@ -25,7 +25,7 @@ class Hangman
         when "1"
           generate_word
         when "2"
-          exit_to_casino
+          # Casino.new
           still_running = false
         else
           clear
@@ -50,13 +50,13 @@ class Hangman
     clear
     puts "Your word is being generated."
     puts "..."
-    # sleep(2)
+    sleep(2)
     pick_word
     @word_arr = @game_word.chars.to_a
     @user_word = "_" * @word_arr.length
     @user_word = @user_word.chars.to_a
     puts "Your word has been chosen. "
-    puts @game_word
+    # puts @game_word
     puts "Guess one letter you think is in your word."
     @guesses_left = @game_word.length
     puts "You have #{@guesses_left} guesses left."
@@ -102,6 +102,7 @@ class Hangman
       end
     end
     print @user_word.join(" ")
+    puts
   end
 
   def wrong_guess
@@ -109,7 +110,8 @@ class Hangman
     clear
     @guesses_left -= 1
     puts "Oh no! That letter is not in your word!"
-    puts "You have #{@guesses_left} guesses left."
+    puts "You have #{@guesses_left} guesses left.".colorize(:red)
+    puts
     print @user_word.join(" ")    
   end
 
@@ -133,13 +135,13 @@ class Hangman
       reset
       main_menu
       else
-      puts "\nCONGRATULATIONS!".colorize(:green)
-      puts "You guessed the word! Your man goes free!"
-      puts "Press enter to return to the main menu.".colorize(:red)
-      gets
-      reset
-      main_menu
-      end
+        puts "\nCONGRATULATIONS!".colorize(:green)
+        puts "You guessed the word! Your man goes free!"
+        puts "Press enter to return to the main menu.".colorize(:red)
+        gets
+        reset
+        main_menu
+    end
   end
 
   def reset
@@ -149,8 +151,7 @@ class Hangman
 
   def exit_to_casino
     puts "We hope to see you again soon! Goodbye!"
-    Casino.main_menu
-
+    # Casino.main_menu
   end
 
   def add_word
@@ -206,17 +207,18 @@ class Hangman
   end
 
   def hang_ascii  
-    print " ____________    \n"
-      print "|         |    \n"
-      print "|         0    \n"
-      print "|        /|\\  \n"
-      print "|        / \\  \n"
-      print "|              \n"
-      print "|              \n"
-      print "|              \n"
-      print "_____________  \n"
-    end
+    print " ____________  \n"
+    print "|         |    \n"
+    print "|         0    \n"
+    print "|        /|\\  \n"
+    print "|        / \\  \n"
+    print "|              \n"
+    print "|              \n"
+    print "|              \n"
+    print "/~\_/~\_/~\_/~\_/\n"
+  end
 
+# binding.pry
 end
 
 # Hangman.new
