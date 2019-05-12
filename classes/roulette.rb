@@ -111,7 +111,7 @@ class Roulette
   
   # PAYOUT METHODS
   def zero(bet)
-    puts "What are you betting on? '0' or '00'?"
+    puts "Are you betting on '0' or '00'?"
     prompt
     user_number = gets.to_s
     wheel_spinning
@@ -391,4 +391,4 @@ class Roulette
   
 end
 
-Roulette.new
+# Roulette.new

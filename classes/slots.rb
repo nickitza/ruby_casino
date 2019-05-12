@@ -1,4 +1,4 @@
-require_relative 'ruby_casino.rb'
+# require_relative 'ruby_casino.rb'
 require 'pry'
 require 'colorize'
 
@@ -57,4 +57,4 @@ def slot_machine
     #main_menu
 end
 
-slot_machine
+# slot_machine
