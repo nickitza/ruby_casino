@@ -2,9 +2,8 @@ require "pry"
 require "colorize"
 require "require_all"
 #require "sounder"
-
 require_all 'classes'
-
+# require_all 'blackjack'
 # require_relative 'classes/roulette.rb'
 # require_relative 'classes/player.rb'
 
@@ -39,7 +38,6 @@ class Casino < Player
         when 1
             #######################################################################
             puts "play blackjack here when added. now back to main menu..."
-            main_menu
             #######################################################################
         when 2
             #######################################################################

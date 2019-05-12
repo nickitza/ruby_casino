@@ -36,6 +36,7 @@ class Roulette
     puts "Type 'help' at any time for rules"
     puts "type 'play' to start playing."
     puts "Type 'quit' to return to the Casino Manu"
+    puts
     prompt
     binding.pry
     user_input = gets.strip
@@ -57,9 +58,11 @@ class Roulette
     # print `clear`
     @bets_placed += 1
     puts "Enter 'view' to see ball history. 'help' for help menu"
+    puts
     puts "You currently have $#{@wallet}."
+    puts
     puts "How much money do you want to bet?"
-
+    puts
     #ADD VIEW WALLET CHOICE HERE
     prompt
     user_bet = gets.strip
@@ -83,6 +86,7 @@ class Roulette
     puts "7) 2:1 - Dozens"
     puts "8) 2:1 - Column"
     puts "9) 1:1 - Colors, Even or Odd, 1 to 18 or 19 to 36"
+    puts
     prompt
     user_choice = gets.strip
     exit_functions(user_choice)
@@ -121,6 +125,7 @@ class Roulette
   # PAYOUT METHODS
   def zero(bet)
     puts "Are you betting on '0' or '00'?"
+    puts
     prompt
     user_number = gets.to_s
     wheel_spinning
@@ -136,15 +141,19 @@ class Roulette
   
   def straight_up(bet)
     puts "What number are you betting on?"
+    puts
     prompt
     user_number = gets.to_i
     if user_number < 1 || user_number > 36
       puts "That is not a valid bet. Please enter a number between 1 and 36"
+      puts
       straight_up(bet)
     end
     puts "You are betting $#{bet} on #{user_number}"
+    puts
     wheel_spinning
     puts "Ball landed on #{@ball_landed.keys[0]}, #{@ball_landed.values[0]}."
+    puts
     if @ball_landed.keys[0] == user_number
       payout = 35
       you_win(bet, payout)
@@ -156,8 +165,10 @@ class Roulette
   
   def row(bet)
     puts "You are betting $#{bet} on 0 or 00"
+    puts
     wheel_spinning
     puts "Ball landed on #{@ball_landed.keys[0]}, #{@ball_landed.values[0]}."
+    puts
     if @ball_landed.keys[0] == (0) || @ball_landed.keys[0] == 0.0
       payout = 17
       you_win(bet, payout)
@@ -170,10 +181,12 @@ class Roulette
   def split(bet)
     puts "What two numbers are you splitting?"
     puts "Numbers must be between 1 and 36 and either split by 1, or 3"
+    puts
     prompt
     user_number = gets.strip
     user_arr = user_number.split(/\D\b/).map!(&:to_i)
     puts "You are betting $#{bet} on #{user_arr[0]} and #{user_arr[1]}"
+    puts
     wheel_spinning
     if (user_arr.max - user_arr.min == 1) || (user_arr.max - user_arr.min == 3)
       puts "Ball landed on #{@ball_landed.keys[0]}, #{@ball_landed.values[0]}."
@@ -204,6 +217,7 @@ class Roulette
     puts "10) Street 10: #{rows[9]}"
     puts "11) Street 11: #{rows[10]}"
     puts "12) Street 12: #{rows[11]}"
+    puts
     prompt
     user_number = gets.to_i
     puts "You are betting #{bet} on Street #{user_number}."
@@ -220,8 +234,10 @@ class Roulette
   
   def top_line(bet)
     puts "You are betting #{bet} on the Top Line (0, 00, 1, 2, 3.)"
+    puts
     wheel_spinning
     puts "Ball landed on #{@ball_landed.keys[0]}, #{@ball_landed.values[0]}."
+    puts
     if [0, 0.0, 1, 2, 3].include?(@ball_landed.keys[0])
       payout = 2
       you_win(bet, payout)
@@ -239,11 +255,14 @@ class Roulette
     puts "1) Row 1:  #{columns[0]}"
     puts "2) Row 2:  #{columns[1]}"
     puts "3) Row 3:  #{columns[2]}"
+    puts
     prompt
     user_number = gets.to_i
     puts "You are betting $#{bet} on Row #{columns[user_number - 1]}"
+    puts
     wheel_spinning
     puts "Ball landed on #{@ball_landed.keys[0]}, #{@ball_landed.values[0]}."
+    puts
     if columns[user_number - 1].include?(@ball_landed.keys[0])
       payout = 2
       you_win(bet, payout)
@@ -263,11 +282,14 @@ class Roulette
     puts "1) First dozen, 1 - 12"
     puts "2) Second dozen, 13-24"
     puts "3) Third dozen, 25-36"
+    puts
     prompt
     user_number = gets.to_i
     puts "You are betting $#{bet} on dozen #{user_number}"
+    puts
     wheel_spinning
     puts "Ball landed on #{@ball_landed.keys[0]}, #{@ball_landed.values[0]}."
+    puts
     if dozen[user_number - 1].include?(@ball_landed.keys[0])
       payout = (bet * 2) + bet
       puts "YOU WIN"
@@ -285,6 +307,7 @@ class Roulette
     puts "1) Even/Odd"
     puts "2) Red/Black"
     puts "3) 1 to 18/19 to 36"
+    puts
     prompt
     user_input = gets.to_i
     case user_input
@@ -300,12 +323,15 @@ class Roulette
   def even_odd(bet)
     puts "1) Even"
     puts "2) Odd"
+    puts
     prompt
     user_input = gets.to_i
     choice = ["even", "odd"]
     puts "You are betting #{bet} on #{choice[user_input - 1]}"
+    puts
     wheel_spinning
     puts "Ball landed on #{@ball_landed.keys[0]}, #{@ball_landed.values[0]}."
+    puts
     if user_input == 1 && @ball_landed.keys[0].even?
       payout = 1
       you_win(bet, payout)
@@ -321,12 +347,15 @@ class Roulette
   def red_black(bet)
     puts "1) Red"
     puts "2) Black"
+    puts
     prompt
     user_input = gets.to_i
     choice = ["red", "black"]
     puts "You are betting #{bet} on #{choice[user_input - 1]}"
+    puts
     wheel_spinning
     puts "Ball landed on #{@ball_landed.keys[0]}, #{@ball_landed.values[0]}."
+    puts
     if user_input == 1 && (@ball_landed.values[0] == "red")
       payout = 1
       you_win(bet,payout)
@@ -342,12 +371,15 @@ class Roulette
   def half_board(bet)
     puts "1) 1 through 18"
     puts "2) 19 through 36"
+    puts
     prompt
     user_input = gets.to_i
     range = @roulette_wheel_numbers.each_slice(18).to_a
     puts "You are betting #{bet} on #{range[user_input - 1]}"
+    puts
     wheel_spinning
     puts "Ball landed on #{@ball_landed.keys[0]}, #{@ball_landed.values[0]}."
+    puts
     if range[user_input - 1].include?(@ball_landed.keys[0])
       payout = 1
       you_win(bet, payout)
@@ -361,6 +393,7 @@ class Roulette
     puts "YOU WIN"
     payout = (bet * payout) + bet
     puts "PAYOUT: $#{payout}"
+    puts
     @wallet += payout
   end
   
@@ -376,7 +409,7 @@ class Roulette
     @ball_history.each.with_index do |result, i| 
       puts "#{i + 1}) #{result.keys[0]} #{result.values[0]}".colorize(:"#{result.values[0]}")
     end
-    sleep(5)
+    sleep(3)
     place_bet
   end
   
@@ -402,4 +435,4 @@ class Roulette
     end
 end
 
-# Roulette.new
+# Roulette.new(100)

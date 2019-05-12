@@ -104,4 +104,4 @@ end
 end
 
 
-@deal = DealCard.new
+# @deal = DealCard.new
