@@ -1,38 +1,32 @@
 require 'pry'
-require './cards.rb'
-require './aces.rb'
-deck = Deck.new
-#whats done,
-#can draw cards from a Deck
-#can issue 2 hands 
-
+# require './cards.rb'
+# # require './aces.rb'
+# require './wallet.rb'
+# Deck.new
+#
+# Wallet.new
 
 class DealCard
 
   def initialize
   random
+  bets
+  playing
+  winner
   end
-
   def random
   numbers = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 11]
-  numbers[rand(numbers.count)]
+  @house = numbers.sample(2)
+  @dealercards = @house.reduce(:+)
 
   end
 
-  def random2
-  numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 11]
-  numbers[rand(numbers.count)]
+  def bets
+    new_num = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 11]
+    @gambler = new_num.sample(2)
+    @playercards = @gambler.reduce(:+)
   end
 
-end
-
- @deal = DealCard.new
-
-
-class Round < DealCard
-  def initialize
-    playing
-  end
   def playing
     puts "press 1, lets play"
     puts "press 2 to exit"
@@ -42,16 +36,37 @@ class Round < DealCard
       hand
     when 2
       exit
-
     end
   end
   def hand
-    puts random + random2
+    puts "#{random} is the players hand"
+    sleep(0.5)
     dealer_hand
   end
   def dealer_hand
-    puts "#{random + random2} is dealers hand"
+    puts "#{bets} is dealers hand"
+    sleep(0.5)
+  end
+  def winner
+    bets
+    random
+    # binding.pry
+    case
+    when @playercards < @dealercards
+      puts "dealer wins"
+    when @playercards > @dealercards
+      puts "player wins"
+    when @dealercards > 21
+      puts "dealer busted"
+    when @playercards > 21
+      puts "player busted"
+    when @playercards == @dealercards
+      puts "its a tie"
+    else
+      puts "else puts wierd"
+    end
   end
 end
 
-round = Round.new
+
+@deal = DealCard.new
