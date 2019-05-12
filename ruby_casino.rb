@@ -14,8 +14,9 @@ require_all 'classes'
     #game menu here
 
 class Casino < Player
-    def initialize
+    def initialize(wallet)
         @game_menu = ["Blackjack", "Hangman", "Slot Machine", "Roulette", "Keno"]
+        @wallet = wallet
         main_menu
     end
     def main_menu
@@ -28,8 +29,9 @@ class Casino < Player
         end
         puts "6. Leave Casino"
         puts "7. New Player"
-        puts
+        puts "8. Cashier"
         game_choice = gets.strip.to_i
+        binding.pry
         do_choice(game_choice)
     end
     def do_choice(game_choice)
@@ -52,7 +54,7 @@ class Casino < Player
         when 4
             #######################################################################
             puts "play Roulette here when added. now back to main menu..."
-            Roulette.new
+            Roulette.new(@wallet)
             #######################################################################
         when 5
             #######################################################################
@@ -63,6 +65,8 @@ class Casino < Player
             quit_casino
         when 7
             Player.new
+        when 8
+            cashier
         else 
             puts
             puts 
@@ -92,12 +96,13 @@ class Casino < Player
                 view_balance
             when 2
                 puts
-                puts "#{@player}, your current balance is #{@money}"
+                puts "#{@player}, your current balance is #{@wallet}"
                 puts
                 puts "How much would you like to add to your wallet?"
                 puts
                 add_me = gets.to_i
                 increase_balance(add_me)
+                main_menu
             when 3
                 puts
                 puts "Are you sure you'd like to withdraw your wallet and leave? (y/n)"
@@ -118,4 +123,4 @@ class Casino < Player
     end 
 end
 
-Casino.new
+Casino.new(0)

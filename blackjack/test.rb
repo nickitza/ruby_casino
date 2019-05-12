@@ -1,81 +1,41 @@
-#make a = 11 unless total of hand > 21
-
-#make letters = 10
-
+require 'pry'
+# require './cards.rb'
+# # require './aces.rb'
+# require './wallet.rb'
+# Deck.new
 #
-# def player
-#   j, q, k, a = 10, 10, 10, 11
-#   hand = a + a
-#   if hand == 21
-#     puts "you win"
-#   elsif hand < 21
-#     puts "would you like to hit again"
-#
-#   else
-#     puts "you lost"
-#   end
-# end
-# player
-
-
-
-
-
-# a = 11
-# cardnum = [2, 3, 4, 5, 6, 7, 8, 9, 10, a]
-# def totalhand(cardnum)
-#   total = 0
-#   cardnum.each do |n|
-#     total += n
-#   end
-#   total
-# end
-# puts totalhand(cardnum)
-# #
-#
-# if totalhand < 21
-#   a = 11
-# else
-#   a = 1
-# end
-#
-# puts a
-# numbers = 2..10
-# def imperative_sum(numbers)
-#   total = 0
-#   numbers.each do |n|
-#     total += n
-#   end
-#   total
-# end
-# puts imperative_sum(numbers)
+# Wallet.new
 
 class DealCard
 
   def initialize
   random
+  bets
+  playing
+  winner
   end
-
   def random
-  numbers = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 11]
-  numbers[rand(numbers.count)]
-
+  @numbers = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 11]
+  @house = @numbers.sample(2)
+  @dealercards = @house.reduce(:+)
+  end
+  def hit
+    puts "your total is #{@playercards} press one if you want to hit?"
+    take_hit = gets.to_i
+    case take_hit
+    when 1
+      @the_hit = @numbers.sample(1)
+      @the_hit << @playercards
+      @hit_total = @the_hit.reduce(:+)
+      puts "you new total is #{@hit_total}"
+    end
+    end
+  def bets
+    new_num = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 11]
+    @gambler = new_num.sample(2)
+    @playercards = @gambler.reduce(:+)
   end
 
-  def random2
-  numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 11]
-  numbers[rand(numbers.count)]
-  end
-
-end
-
- @deal = DealCard.new
-
-
-class Round < DealCard
-  def initialize
-    playing
-  end
   def playing
     puts "press 1, lets play"
     puts "press 2 to exit"
@@ -85,16 +45,36 @@ class Round < DealCard
       hand
     when 2
       exit
-
     end
   end
   def hand
-    puts random + random2
+    puts "your cards are #{@gambler}"
+    sleep(0.5)
+    hit
     dealer_hand
   end
   def dealer_hand
-    puts "#{random + random2} is dealers hand"
+    puts "dealers cards are #{@house.first} shows #{@dealercards}"
+    sleep(0.5)
+  end
+  def winner
+  
+    case
+    when @playercards < @dealercards
+      puts "dealer wins"
+    when @playercards > @dealercards
+      puts "player wins"
+    when @dealercards > 21
+      puts "dealer busted"
+    when @playercards > 21
+      puts "player busted"
+    when @playercards == @dealercards
+      puts "its a tie"
+    else
+      puts "else puts wierd"
+    end
   end
 end
 
-round = Round.new
+
+@deal = DealCard.new
