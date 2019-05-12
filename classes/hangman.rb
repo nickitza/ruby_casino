@@ -1,14 +1,16 @@
+#-for future to do's: add difficult level in both word arrays, guesses_left and
+# introduce a bet multiplier for those difficulties. 
+# -add ability to add money without going back to cashier.
+# -add gradual ascii print outs (head on first wrong guess, then body 2/3 wrong)
+
 require 'colorize'
 require 'pry'
-# require 'require_all'
-# require_relative "./../ruby_casino.rb"
 
 class Hangman
   attr_accessor :letters_left, :hangman_wallet
   def initialize(wallet)
     @letters_left = ('a'..'z').to_a.join(" ")
     @user_word = ""
-    # @hangman_wallet =
     @wallet = wallet
 
     main_menu
@@ -128,6 +130,7 @@ class Hangman
     remove_letter
     clear
     puts "Hooray!! You're right! That letter is in the word!"
+    puts "You have #{@guesses_left} guesses left.".colorize(:red)
     @word_arr.each_with_index do |w, i|
       if @word_arr[i].include?(@user_guess)
         @user_word[i] = @user_guess
@@ -261,8 +264,5 @@ class Hangman
     print "|              \n"
     print "/~\_/~\_/~\_/~\_/\n"
   end
-
-# binding.pry
 end
 
-# Hangman.new
