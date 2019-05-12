@@ -1,36 +1,11 @@
 require 'pry'
-
 require './cards.rb'
 require './aces.rb'
 deck = Deck.new
+#whats done,
+#can draw cards from a Deck
+#can issue 2 hands 
 
-class BlackJack
-  def initialize
-    game
-  end
-    def game
-      puts "press 1 to play a hand"
-      input = gets.to_i
-      case input
-        @hand = DealCard
-      when @hand > 21
-      puts "bust"
-      when
-       @hand < 21
-      puts "1) would you like to hit again"
-      input = gets.strip
-    else @hand == 21
-    rescue
-      puts "you win"
-    end
-      case input
-      when 1
-        hit
-    else
-      puts "you lost"
-      end
-  end
-end
 
 class DealCard
 
@@ -47,11 +22,36 @@ class DealCard
   def random2
   numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 11]
   numbers[rand(numbers.count)]
+  end
 
+end
+
+ @deal = DealCard.new
+
+
+class Round < DealCard
+  def initialize
+    playing
+  end
+  def playing
+    puts "press 1, lets play"
+    puts "press 2 to exit"
+    input = gets.to_i
+    case input
+    when 1
+      hand
+    when 2
+      exit
+
+    end
+  end
+  def hand
+    puts random + random2
+    dealer_hand
+  end
+  def dealer_hand
+    puts "#{random + random2} is dealers hand"
   end
 end
 
- deal = DealCard.new.random + DealCard.new.random2
-
-
-BlackJack.new
+round = Round.new
