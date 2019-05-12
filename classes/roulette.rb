@@ -11,11 +11,10 @@ require "sounder"
 
 class Roulette
   attr_accessor :roulette_wallet
-  roulette_wallet = $wallet
   
-  def initialize
+  def initialize(wallet)
     @bets_placed = 0
-    @wallet = roulette_wallet
+    @wallet = wallet
     @ball_history = []
     @roulette_wheel_numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 28, 30, 31, 32, 33, 34, 35, 36]
     @roulette_wheel_hash = [{0 => "green"},{ 0.0 => "green"}, {1 => "red"},
@@ -38,6 +37,7 @@ class Roulette
     puts "type 'play' to start playing."
     puts "Type 'quit' to return to the Casino Manu"
     prompt
+    binding.pry
     user_input = gets.strip
     exit_functions(user_input)
     place_bet
@@ -398,7 +398,7 @@ class Roulette
   def exit_functions(user_input)
       user_input == 'view' ? view_history : nil
       user_input == 'help' ? help_menu : nil
-      user_input == 'quit' ? Casino.new : nil
+      user_input == 'quit' ? Casino.new(@wallet) : nil
     end
 end
 

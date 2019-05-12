@@ -1,4 +1,5 @@
 class Wallet
+    attr_accessor :wallet
     def initialize
         @wallet = 0
     end
