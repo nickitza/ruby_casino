@@ -16,7 +16,6 @@ require_all 'classes'
 
 class Casino < Player
     def initialize
-        casino_menu
         @game_menu = ["Blackjack", "Hangman", "Slot Machine", "Roulette", "Keno"]
         main_menu
     end
@@ -43,7 +42,7 @@ class Casino < Player
         when 2
             #######################################################################
             puts "play Hangman here when added. now back to main menu..."
-            main_menu
+            Hangman.new
             #######################################################################
         when 3
             #######################################################################
@@ -53,7 +52,7 @@ class Casino < Player
         when 4
             #######################################################################
             puts "play Roulette here when added. now back to main menu..."
-            main_menu
+            Roulette.new
             #######################################################################
         when 5
             #######################################################################
@@ -117,4 +116,4 @@ class Casino < Player
     end 
 end
 
-casino.new
+Casino.new
