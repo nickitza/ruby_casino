@@ -1,6 +1,7 @@
 require 'colorize'
 require 'pry'
-# require 'ruby_casino'
+# require 'require_all'
+# require_relative "./../ruby_casino.rb"
 
 class Hangman
   attr_accessor :letters_left
@@ -23,10 +24,12 @@ class Hangman
       user_choice = get_menu_choice 
       case user_choice
         when "1"
+          # if $player.wallet <= 0, puts 'not enough money to bet'
+          # else
           generate_word
         when "2"
-          # Casino.new
-          still_running = false
+          Casino.new
+          # still_running = false
         else
           clear
           stars
@@ -56,7 +59,8 @@ class Hangman
     @user_word = "_" * @word_arr.length
     @user_word = @user_word.chars.to_a
     puts "Your word has been chosen. "
-    # puts @game_word
+    puts "How much would you like to bet?"
+    @bet = gets.strip.to_i
     puts "Guess one letter you think is in your word."
     @guesses_left = @game_word.length
     puts "You have #{@guesses_left} guesses left."
@@ -75,7 +79,8 @@ class Hangman
       puts "Which of the available letters would you like to choose?"
       puts @letters_left
       @user_guess = gets.strip.downcase
-      if @user_guess.length == 1
+      if @user_guess.length == 1 
+        # change to if user_guess is included in letters_left
         if @word_arr.include?(@user_guess)
           right_guess
           get_guess
@@ -129,6 +134,10 @@ class Hangman
       puts
       puts "GAME OVER".colorize(:red)
       puts "You ran out of guesses! Your man hangs!"
+      # $player.wallet -= @bet
+      puts "You lose $#{@bet}!"
+      # puts your wallet total is now:
+      puts "Your word was #{@game_word}."
       hang_ascii
       puts "Press enter to return to the main menu.".colorize(:red)
       gets
@@ -137,6 +146,8 @@ class Hangman
       else
         puts "\nCONGRATULATIONS!".colorize(:green)
         puts "You guessed the word! Your man goes free!"
+        puts "You win $#{@bet}!"
+        # $player.wallet += @bet
         puts "Press enter to return to the main menu.".colorize(:red)
         gets
         reset
@@ -192,7 +203,10 @@ class Hangman
       "fairies",
       "computer",
       "obtain",
-      "vampire"
+      "vampire",
+      "music",
+      "mouse",
+      "plant"
     ]
     @game_word = @words.sample
   end
