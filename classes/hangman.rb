@@ -25,7 +25,7 @@ class Hangman
         when "1"
           generate_word
         when "2"
-          # Casino.new
+          Casino.new
           still_running = false
         else
           clear

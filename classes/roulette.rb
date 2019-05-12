@@ -1,8 +1,13 @@
+#WALLET NEEDS TO SYNC WITH CASINO
+#HELP MENU MOD/UPDATE
+#
+#
+#BETS PLACED AND MONEY WON?
+
 require "pry"
 require "colorize"
 require "sounder"
-# require_relative "player"
-# require_relative '../ruby_casino'
+# require_relative "ruby_casino.rb"
 
 class Roulette
   attr_accessor :roulette_wallet
@@ -10,7 +15,7 @@ class Roulette
   
   def initialize
     @bets_placed = 0
-    @wallet = 100
+    @wallet = roulette_wallet
     @ball_history = []
     @roulette_wheel_numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 28, 30, 31, 32, 33, 34, 35, 36]
     @roulette_wheel_hash = [{0 => "green"},{ 0.0 => "green"}, {1 => "red"},
@@ -40,6 +45,10 @@ class Roulette
   
   def help_menu
     puts "This is the help menu, type 'quit' to return to game."
+    puts "--Follow on-screen instructions"
+    puts "--Type 'quit' anytime before a bet is placed to return to the Casino"
+    puts "--Type '************************************' if you need to add more money to your wallet"
+
     user_input = gets.strip
     user_input == "quit" ? place_bet : help_menu
   end
@@ -251,12 +260,12 @@ class Roulette
   def dozens(bet)
     dozen = @roulette_wheel_numbers.each_slice(12).to_a
     puts "Which dozen are you betting on?"
-    puts "1) #{dozen[0]}"
-    puts "2) #{dozen[1]}"
-    puts "3) #{dozen[2]}"
+    puts "1) First dozen, 1 - 12"
+    puts "2) Second dozen, 13-24"
+    puts "3) Third dozen, 25-36"
     prompt
     user_number = gets.to_i
-    puts "You are betting #{bet} on the #{user_number}rd dozen"
+    puts "You are betting $#{bet} on dozen #{user_number}"
     wheel_spinning
     puts "Ball landed on #{@ball_landed.keys[0]}, #{@ball_landed.values[0]}."
     if dozen[user_number - 1].include?(@ball_landed.keys[0])
@@ -363,9 +372,12 @@ class Roulette
   end
   
   def view_history
+    puts `clear`
     @ball_history.each.with_index do |result, i| 
       puts "#{i + 1}) #{result.keys[0]} #{result.values[0]}".colorize(:"#{result.values[0]}")
     end
+    sleep(5)
+    place_bet
   end
   
   #HELPER FORMATTING FUNCTIONS
@@ -384,11 +396,10 @@ class Roulette
   end
 
   def exit_functions(user_input)
-    user_input == 'help' ? help_menu : nil
-    user_input == 'view' ? view_history : nil 
-    user_input == 'quit' ? main_menu : nil
-  end
-  
+      user_input == 'view' ? view_history : nil
+      user_input == 'help' ? help_menu : nil
+      user_input == 'quit' ? Casino.new : nil
+    end
 end
 
 # Roulette.new

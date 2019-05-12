@@ -1,6 +1,7 @@
 require_relative 'wallet'
 require 'colorize'
 
+
 class Player < Wallet
     attr_accessor :name
     def initialize
@@ -29,21 +30,22 @@ class Player < Wallet
     end
     def correct_player   
         choice = gets.strip
-        if choice == y
+        if choice == 'y'
             puts
             puts 
             puts "Do you want to add a little more to your wallet before going into the casino? (y/n)"
             choice2 = gets.strip
-            if choice2 == n
+            if choice2 == 'n'
                 puts
                 puts "Ok #{@player}, enjoy!"
-            elsif choice2 == y
+                Casino.new
+            elsif choice2 == 'y'
                 puts
                 puts "Great! What new total would you like to work with?"
                 puts "You previously only had $#{@wallet}."
                 get_wallet
             end
-        elsif choice == n
+        elsif choice == 'n'
             puts "Do you need to change: name, wallet, or both?"
             choice3 = gets.strip
             case choice
@@ -94,3 +96,4 @@ class Player < Wallet
         end
     end
 end
+# Player.new
