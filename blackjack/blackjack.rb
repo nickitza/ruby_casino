@@ -39,17 +39,15 @@ class DealCard
     end
   end
   def hand
-    puts "#{random} is the players hand"
+    puts "#{@playercards} is the players hand"
     sleep(0.5)
     dealer_hand
   end
   def dealer_hand
-    puts "#{bets} is dealers hand"
+    puts "#{@dealercards} is dealers hand"
     sleep(0.5)
   end
   def winner
-    bets
-    random
     # binding.pry
     case
     when @playercards < @dealercards
