@@ -5,7 +5,6 @@ require "require_all"
 
 require_all 'classes'
 
-
 # require_relative 'classes/roulette.rb'
 # require_relative 'classes/player.rb'
 
@@ -26,8 +25,9 @@ class Casino < Player
         puts
         @game_menu.each_with_index do |game, i|
             puts "#{i + 1}. #{game}"
-            puts "6. Leave Casino"
         end
+        puts "6. Leave Casino"
+        puts "7. New Player"
         puts
         game_choice = gets.strip.to_i
         do_choice(game_choice)
@@ -61,6 +61,8 @@ class Casino < Player
             #######################################################################
         when 6
             quit_casino
+        when 7
+            Player.new
         else 
             puts
             puts 
