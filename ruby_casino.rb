@@ -42,7 +42,7 @@ class Casino < Player
         when 2
             #######################################################################
             puts "play Hangman here when added. now back to main menu..."
-            Hangman.new
+            Hangman.new(@wallet)
             #######################################################################
         when 3
             #######################################################################
@@ -91,7 +91,8 @@ class Casino < Player
         choice = gets.strip.to_i
         case choice
             when 1
-                view_balance
+                puts "Your balance is $#{@wallet}."
+                cashier
             when 2
                 puts
                 puts "#{@player}, your current balance is #{@wallet}"
