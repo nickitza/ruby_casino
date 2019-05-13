@@ -69,9 +69,9 @@ class Keno
         puts "--------------------------------------------------------------------------------"
         puts
         next_v = gets.strip
-        Keno.player_draw
+        player_draw
     end
-    def self.player_draw
+    def player_draw
         #binding.pry
         @random_fifteen = []
         puts "How many races would you like to play with your first 15-number draw?".colorize(:yellow)
@@ -87,11 +87,12 @@ class Keno
         puts "You're current draw is:".colorize(:yellow)
         puts "#{@random_fifteen}".colorize(:blue)
         puts "---------------------------------------------------------------------".colorize(:blue)
-        Keno.dealer_draw 
+        dealer_draw 
     end
-    def self.dealer_draw
+    def dealer_draw
         @random_twenty = []
         @payout = 0
+        @payouts_round = 0
         @races_number.times do |i|
             @random_twenty = []
             20.times do
@@ -105,36 +106,28 @@ class Keno
             print "##{i + 1}:".colorize(:magenta)
             puts
             puts "#{@random_twenty}".colorize(:yellow)
-            check_for_common = []
-            check_for_common << (@random_fifteen & @random_twenty)
-            check_for_common = check_for_common[0]
-            length_common = check_for_common.length.to_i
-            puts "Number of common elements = #{length_common}".colorize(:green)
-            puts "#{check_for_common}".colorize(:green)
+            @check_for_common = []
+            @check_for_common << (@random_fifteen & @random_twenty)
+            @check_for_common = @check_for_common[0]
+            @length_common = @check_for_common.length.to_i
+            puts "Number of common elements = #{@length_common}".colorize(:green)
+           #######
+            get_index = @length_common - 1
+            payout_hash = @keno_payout[get_index]
             @current_payout = 0
-            # @Keno_payout.each.with_index do |element, i|
-            #     element.each do |value|
-            #         if value == length_common
-            #             element[:payout] = @current_payout
-            #             puts "current payout: #{@current_payout}"
-            #         end
-            #     end
-            # end
+            @current_payout = payout_hash[:payout]
+            @payouts_round += @current_payout 
         end
+        puts "Your winnings for your #{@races_number} Races is : $#{@payouts_round}"
     end
-    # puts "#{@random_fifteen}"
-    # puts 
-    # puts "#{@random_twenty}"
-    #Casino.new(@wallet)
-    #main_menu
+    def dealer_payout
+    end
 end
 
 
-#eno.new
+Keno.new(0)
 #Keno.player_draw
 
 # puts "#{@random_fifteen}"
 # puts 
 # puts "#{@random_twenty}"
-
-  
