@@ -28,17 +28,24 @@ class Roulette
       {30 => "red"}, {31 => "black"}, {32 => "red"}, {33 => "black"}, 
       {34 => "red"}, {35 => "black"}, {36 => "red"},
     ]
-    game_menu
+    if rand(1..4) == 2
+      puts "You found a $100 bill on the ground on your way to the roulette table!"
+      @wallet += 100
+      sleep(3)
+      game_menu
+    else game_menu
+    end
   end
   def game_menu
     puts "------ROULETTE------"
-    puts "Welcome #{@player}, you currently have $#{$wallet}"
+    puts "Welcome! you currently have $#{@wallet}"
+
     puts "Type 'help' at any time for rules"
-    puts "type 'play' to start playing."
-    puts "Type 'quit' to return to the Casino Manu"
+    puts "Type 'quit' to return to the Casino Menu"
+
+    puts "Hit return to start playing!"
     puts
     prompt
-    binding.pry
     user_input = gets.strip
     exit_functions(user_input)
     place_bet
@@ -55,7 +62,6 @@ class Roulette
   end
   
   def place_bet
-    # print `clear`
     @bets_placed += 1
     puts "Enter 'view' to see ball history. 'help' for help menu"
     puts
@@ -75,7 +81,6 @@ class Roulette
     game_play(user_bet.to_i)
   end
   def game_play(bet)
-    print `clear`
     puts "What odds do you want to play?"
     puts "1) 35:1 - 0 or 00"
     puts "2) 35:1 - Straight up"
@@ -407,7 +412,7 @@ class Roulette
   def view_history
     puts `clear`
     @ball_history.each.with_index do |result, i| 
-      puts "#{i + 1}) #{result.keys[0]} #{result.values[0]}".colorize(:"#{result.values[0]}")
+      puts "#{i + 1}) #{result.keys[0]} #{result.values[0]}"
     end
     sleep(3)
     place_bet
@@ -431,7 +436,18 @@ class Roulette
   def exit_functions(user_input)
       user_input == 'view' ? view_history : nil
       user_input == 'help' ? help_menu : nil
-      user_input == 'quit' ? Casino.new(@wallet) : nil
+      # user_input == 'quit' ? Casino.new(@wallet) : nil
+      if user_input == 'quit'
+        if rand(0..4) == 2
+          money_lost = @wallet * rand(0.0..1)
+          puts "Your losses were too great at the roulette table"
+          puts "You ended up at the bar and spent #{money_lost.round(2)} of your money."
+          @wallet -= money_lost
+          sleep(3)
+          Casino.new(@wallet)
+        else Casino.new(@wallet)
+        end
+      end
     end
 end
 
