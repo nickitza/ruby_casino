@@ -128,9 +128,18 @@ class Keno
         puts "Your winnings for your #{@races_number} Races is : $#{@payouts_round}"
         @keno_wallet += @payouts_round
         puts "Your new wallet balance is: $#{@keno_wallet}"
+        puts "Would you like to continue with more Rounds? (y/n)"
+        @continue_choice = gets.strip
+        #binding.pry
+        case @continue_choice
+            when "y"
+                player_draw
+            when "n"
+                puts "Final Balance is: $#{@keno_wallet}. Have a great day, Thank you!"
+                Casino.new(@wallet)
+            end
     end
-end
-
+end  
 
 #Keno.new(300)
 #Keno.player_draw
