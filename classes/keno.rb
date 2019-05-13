@@ -25,12 +25,12 @@ require 'colorize'
 
 @random_twenty = []
 @random_fifteen = []
-
 class Keno
     attr_accessor :keno_wallet
     def initialize(wallet)
         #wallet = @wallet 
-        @wallet = wallet
+        @keno_wallet = wallet
+        @keno_wallet = @keno_wallet.to_i
         #keno_wallet = @wallet
         @keno_payout = [{index: 1, payout: 1},{index: 2, payout: 4},
             {index: 3, payout: 6},{index: 4, payout: 8},{index: 6, payout: 10},
@@ -77,6 +77,8 @@ class Keno
         puts "How many races would you like to play with your first 15-number draw?".colorize(:yellow)
         puts "* reminder each race $1, slate of 7 races $7".colorize(:yellow)
         @races_number = gets.strip.to_i
+        @keno_wallet -= @races_number
+        puts "Your current balance = #{@keno_wallet}"
         15.times do
             # (1...15) do |a|
             #     rand(1...80)
@@ -92,6 +94,7 @@ class Keno
     def dealer_draw
         @random_twenty = []
         @payout = 0
+        @payouts_round = 0
         @races_number.times do |i|
             @random_twenty = []
             20.times do
@@ -105,37 +108,33 @@ class Keno
             print "##{i + 1}:".colorize(:magenta)
             puts
             puts "#{@random_twenty}".colorize(:yellow)
-            check_for_common = []
-            check_for_common << (@random_fifteen & @random_twenty)
-            check_for_common = check_for_common[0]
-            length_common = check_for_common.length.to_i
-            puts "Number of common elements = #{length_common}".colorize(:green)
-            puts "#{check_for_common}".colorize(:green)
+            @check_for_common = []
+            @check_for_common << (@random_fifteen & @random_twenty)
+            @check_for_common = @check_for_common[0]
+            @length_common = @check_for_common.length.to_i
+            puts "Number of common elements = #{@length_common}".colorize(:green)
+           #######
+            get_index = @length_common - 1
+            payout_hash = @keno_payout[get_index]
             @current_payout = 0
-            @keno_payout.each.with_index do |element, i|
-                element.each do |value|
-                    if value == length_common
-                        element[:payout] = @current_payout
-                        binding.pry
-                        puts "current payout: #{@current_payout}"
-                    end
-                end
-            end
+            @current_payout = payout_hash[:payout]
+            @payouts_round += @current_payout 
         end
+        puts
+        puts
+        puts
+        puts
+        puts "--------------------------------------------------------"
+        puts "Your winnings for your #{@races_number} Races is : $#{@payouts_round}"
+        @keno_wallet += @payouts_round
+        puts "Your new wallet balance is: $#{@keno_wallet}"
     end
-    # puts "#{@random_fifteen}"
-    # puts 
-    # puts "#{@random_twenty}"
-    #Casino.new(@wallet)
-    #main_menu
 end
 
 
-#eno.new
+#Keno.new(300)
 #Keno.player_draw
 
 # puts "#{@random_fifteen}"
 # puts 
 # puts "#{@random_twenty}"
-
-  
