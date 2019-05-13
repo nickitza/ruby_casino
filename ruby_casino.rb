@@ -1,13 +1,11 @@
 require "pry"
 require "colorize"
 require "require_all"
-
+#require "sounder"
 require_all 'classes'
-
+# require_all 'blackjack'
 # require_relative 'classes/roulette.rb'
 # require_relative 'classes/player.rb'
-
-#require_all './classes'
 
 #casino 
     #requires player
@@ -15,8 +13,9 @@ require_all 'classes'
     #game menu here
 
 class Casino < Player
-    def initialize
+    def initialize(wallet)
         @game_menu = ["Blackjack", "Hangman", "Slot Machine", "Roulette", "Keno"]
+        @wallet = wallet
         main_menu
     end
     def main_menu
@@ -29,7 +28,7 @@ class Casino < Player
         end
         puts "6. Leave Casino"
         puts "7. New Player"
-        puts
+        puts "8. Cashier"
         game_choice = gets.strip.to_i
         do_choice(game_choice)
     end
@@ -38,23 +37,16 @@ class Casino < Player
         when 1
             #######################################################################
             puts "play blackjack here when added. now back to main menu..."
-            main_menu
             #######################################################################
         when 2
-            #######################################################################
-            # puts "play Hangman here when added. now back to main menu..."
-            Hangman.new
-            #######################################################################
+            Hangman.new(@wallet)
         when 3
             #######################################################################
             puts "play Slots here when added. now back to main menu..."
             main_menu
             #######################################################################
         when 4
-            #######################################################################
-            # puts "play Roulette here when added. now back to main menu..."
-            Roulette.new
-            #######################################################################
+            Roulette.new(@wallet)
         when 5
             #######################################################################
             puts "play Keno here when added. now back to main menu..."
@@ -64,6 +56,8 @@ class Casino < Player
             quit_casino
         when 7
             Player.new
+        when 8
+            cashier
         else 
             puts
             puts 
@@ -85,46 +79,44 @@ class Casino < Player
         @cashier_menu.each_with_index do |game, i|
             puts "#{i + 1}. #{game}"
             puts
-            puts "Please choose option 1-#{i+1}"
+            # puts "Please choose option 1-#{i+1}"
         end
         choice = gets.strip.to_i
         case choice
-            when 1
-                view_balance
-            when 2
-                puts
-                puts "#{@player}, your current balance is #{@money}"
-                puts
-                puts "How much would you like to add to your wallet?"
-                puts
-                add_me = gets.to_i
-                increase_balance(add_me)
-            when 3
-                puts
-                puts "Are you sure you'd like to withdraw your wallet and leave? (y/n)"
-                choice = gets.strip.to_s
-                if choice.downcase == 'y'
-                    withdraw_total = @wallet.to_i
-                    decrease_balance(withdraw_total)
+        when 1
+            print `clear`
+            puts "Your balance is $#{@wallet.round(2)}."
+            cashier
+        when 2
+            print `clear`
+            puts
+            puts "#{@player}, your current balance is #{@wallet}"
+            puts
+            puts "How much would you like to add to your wallet?"
+            puts
+            add_me = gets.to_i
+            increase_balance(add_me)
+            main_menu
+        when 3
+            print `clear`
+            puts
+            puts "Are you sure you'd like to withdraw your wallet and leave? (y/n)"
+            choice = gets.strip.to_s
+            if choice.downcase == 'y'
+                withdraw_total = @wallet.to_i
+                decrease_balance(withdraw_total)
                 puts
                 puts
                 puts "Ok #{@player}, you've withdrawn $#{@wallet}"
                 quit_casino
-                else
-                    cashier
-                end
-            when 4
+            else
+                print `clear`
+                cashier
+            end
+        when 4
                 main_menu
         end
     end 
 end
 
-
-Player.new 
-binding.pry
-Player1 = Casino.new
-binging.pry
-Player1.main_menu
-#binding.pry
-
-#Player1.main_menu
+Casino.new(0)

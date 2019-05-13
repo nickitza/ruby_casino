@@ -6,6 +6,7 @@ class Player < Wallet
     attr_accessor :name
     def initialize
         @player = nil
+        @wallet = 0
         player_info
     end
     def player_info
@@ -38,11 +39,11 @@ class Player < Wallet
             if choice2 == 'n'
                 puts
                 puts "Ok #{@player}, enjoy!"
-                Casino.new
+                Casino.new(@wallet)
             elsif choice2 == 'y'
                 puts
                 puts "Great! What new total would you like to work with?"
-                puts "You previously only had $#{@wallet}."
+                puts "You previously only had $#{cash}."
                 get_wallet
             end
         elsif choice == 'n'
@@ -64,7 +65,7 @@ class Player < Wallet
                 puts
                 puts "What amount would you like to play with?"
                 get_wallet
-                puts "Great! #{@player}, you'll be playing with $#{@wallet}. Is that correct? (y/n)"
+                puts "Great! #{@player}, you'll be playing with $#{cash}. Is that correct? (y/n)"
                 correct_player
             end
         end
@@ -76,14 +77,14 @@ class Player < Wallet
     end
     def get_wallet
         puts
-        @wallet = gets.strip.to_i
-        if @wallet < 100
+        cash = gets.strip.to_i
+        if cash < 100
             puts 
             puts "Apologies but this casino has a minimum pay-to-play amount of $100."
             sleep(1)
             puts "What amount would you like to play with today?"
             get_wallet
-        elsif @wallet == 0
+        elsif cash == 0
             puts
             puts "Sooooo... you wanted to gamble with zero dollars..?"
             sleep(1)
@@ -92,7 +93,8 @@ class Player < Wallet
         else
             puts
             puts
-            # puts "Awesome! You'll be playing with an account balance of $#{@wallet}. #{@player}, good luck!!"
+            puts "Awesome! You'll be playing with an account balance of #{cash}. #{@player}, good luck!!"
+            increase_balance(cash)
         end
     end
 end

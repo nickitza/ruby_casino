@@ -1,12 +1,18 @@
+#-for future to do's: add difficult level in both word arrays, guesses_left and
+# introduce a bet multiplier for those difficulties. 
+# -add ability to add money without going back to cashier.
+# -add gradual ascii print outs (head on first wrong guess, then body 2/3 wrong)
+
 require 'colorize'
 require 'pry'
-# require 'ruby_casino'
 
 class Hangman
-  attr_accessor :letters_left
-  def initialize
+  attr_accessor :letters_left, :hangman_wallet
+  def initialize(wallet)
     @letters_left = ('a'..'z').to_a.join(" ")
     @user_word = ""
+    @wallet = wallet
+
     main_menu
 
   end
@@ -23,10 +29,17 @@ class Hangman
       user_choice = get_menu_choice 
       case user_choice
         when "1"
-          generate_word
+          if @wallet <= 0
+            puts 'Your wallet is empty.'
+            puts "Press enter to go back to the Casino to get more money."
+            gets
+            Casino.new(@wallet)
+          else
+          place_bet
+          end
         when "2"
-          Casino.new
-          still_running = false
+          Casino.new(@wallet)
+          # still_running = false
         else
           clear
           stars
@@ -42,22 +55,44 @@ class Hangman
 
   def get_menu_choice
     puts "1) New Game"
-    puts "2) Exit"
+    puts "2) Exit To Casino"
     gets.strip
   end
+
+  def place_bet
+    clear
+    puts "How much would you like to bet?"
+    print ">$ "
+    @bet = gets.strip.to_i
+    if @bet > @wallet
+        clear
+        stars
+        puts "You do not have enough money to make that bet.".colorize(:red)
+        puts "You have $#{@wallet} in your wallet for betting.".colorize(:red)
+        stars
+        puts "Press enter to continue."
+        gets
+        place_bet
+      else
+      generate_word
+      end
+  end
+
 
   def generate_word
     clear
     puts "Your word is being generated."
-    puts "..."
-    sleep(2)
+    print "."
+    sleep(1)
+    print "."
+    sleep(1)
+    puts "."
+    sleep(1)
     pick_word
     @word_arr = @game_word.chars.to_a
     @user_word = "_" * @word_arr.length
     @user_word = @user_word.chars.to_a
     puts "Your word has been chosen. "
-    # puts @game_word
-    puts "Guess one letter you think is in your word."
     @guesses_left = @game_word.length
     puts "You have #{@guesses_left} guesses left."
     puts "Choose your letter wisely!"
@@ -75,7 +110,7 @@ class Hangman
       puts "Which of the available letters would you like to choose?"
       puts @letters_left
       @user_guess = gets.strip.downcase
-      if @user_guess.length == 1
+      if @letters_left.include?(@user_guess)
         if @word_arr.include?(@user_guess)
           right_guess
           get_guess
@@ -84,7 +119,7 @@ class Hangman
             get_guess
         end
         else
-          puts "Please choose one letter to guess."
+          puts "Please choose one of the remaining letters to guess."
           get_guess
       end
     end
@@ -95,6 +130,7 @@ class Hangman
     remove_letter
     clear
     puts "Hooray!! You're right! That letter is in the word!"
+    puts "You have #{@guesses_left} guesses left.".colorize(:red)
     @word_arr.each_with_index do |w, i|
       if @word_arr[i].include?(@user_guess)
         @user_word[i] = @user_guess
@@ -129,6 +165,11 @@ class Hangman
       puts
       puts "GAME OVER".colorize(:red)
       puts "You ran out of guesses! Your man hangs!"
+      @wallet -= @bet
+      puts "You lose $#{@bet}!"
+      puts "You now have a total of $#{@wallet} in your wallet."
+      # puts your wallet total is now:
+      puts "Your word was #{@game_word.colorize(:yellow)}."
       hang_ascii
       puts "Press enter to return to the main menu.".colorize(:red)
       gets
@@ -137,6 +178,9 @@ class Hangman
       else
         puts "\nCONGRATULATIONS!".colorize(:green)
         puts "You guessed the word! Your man goes free!"
+        @wallet += @bet
+        puts "You win $#{@bet}!"
+        puts "You now have a total of $#{@wallet} in your wallet."
         puts "Press enter to return to the main menu.".colorize(:red)
         gets
         reset
@@ -149,10 +193,10 @@ class Hangman
     @user_word = ""
   end
 
-  def exit_to_casino
-    puts "We hope to see you again soon! Goodbye!"
-    # Casino.main_menu
-  end
+  # def exit_to_casino
+  #   puts "We hope to see you again soon! Goodbye!"
+  #   # Casino.main_menu
+  # end
 
   def add_word
   end
@@ -192,7 +236,10 @@ class Hangman
       "fairies",
       "computer",
       "obtain",
-      "vampire"
+      "vampire",
+      "music",
+      "mouse",
+      "plant"
     ]
     @game_word = @words.sample
   end
@@ -217,8 +264,5 @@ class Hangman
     print "|              \n"
     print "/~\_/~\_/~\_/~\_/\n"
   end
-
-# binding.pry
 end
 
-# Hangman.new
