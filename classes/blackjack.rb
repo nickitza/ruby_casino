@@ -1,12 +1,13 @@
 require 'pry'
 # require './cards.rb'
 # # require './aces.rb'
-# require './wallet.rb'
+require './wallet.rb'
 # Deck.new
 #
 # Wallet.new
 
-class DealCard
+class DealCard < Wallet
+  puts "your current balance is#{}"
 
   def initialize
   random
@@ -23,8 +24,7 @@ when @dealercards <= 15
 
     @house_hit = @numbers.sample(1)
     @dealer_after_hit = @house.concat(@house_hit)
-    @dealer_total = @dealer_after_hit.reduce(:+) ||  @dealercard.reduce(:+)
-    binding.pry
+    @dealer_total = @dealer_after_hit.reduce(:+)
 end
   end
   def hit
@@ -84,12 +84,11 @@ end
   end
   def winner
     puts "the dealers total is #{@dealer_total || @dealercards}"
-    win_num = 21
-    case
-    when @dealer_total > win_num
+    @win_num = 21
+    case @win_num
+    when @dealer_total > @win_num
       puts "dealer busted"
-    when @hit_total > win_num
-      binding.pry
+    when @hit_total > @win_num
       puts "player busted"
     when @hit_total < @dealer_total
       puts "dealer wins"
@@ -98,7 +97,7 @@ end
     when @hit_total == @dealer_total
       puts "its a tie"
     else
-      puts "wierd"
+      puts "both of you busted"
     end
   end
 end
