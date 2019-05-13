@@ -136,7 +136,7 @@ class Keno
                 player_draw
             when "n"
                 puts "Final Balance is: $#{@keno_wallet}. Have a great day, Thank you!"
-                Casino.new(@wallet)
+                Casino.new(@keno_wallet)
             end
     end
 end  
