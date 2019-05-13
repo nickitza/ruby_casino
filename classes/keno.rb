@@ -128,6 +128,7 @@ class Keno
         puts "Your winnings for your #{@races_number} Races is : $#{@payouts_round}"
         @keno_wallet += @payouts_round
         puts "Your new wallet balance is: $#{@keno_wallet}"
+        player_draw
     end
 end
 
