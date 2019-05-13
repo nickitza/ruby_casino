@@ -6,16 +6,16 @@
 
 require "pry"
 require "colorize"
-require "sounder"
-# require_relative "ruby_casino.rb"
+# require "sounder"
+require_relative "player.rb"
 
 class Roulette
   attr_accessor :roulette_wallet
-  roulette_wallet = $wallet
+  roulette_wallet = @wallet
   
   def initialize
     @bets_placed = 0
-    @wallet = roulette_wallet
+    #@wallet = roulette_wallet
     @ball_history = []
     @roulette_wheel_numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 28, 30, 31, 32, 33, 34, 35, 36]
     @roulette_wheel_hash = [{0 => "green"},{ 0.0 => "green"}, {1 => "red"},
@@ -33,7 +33,7 @@ class Roulette
   end
   def game_menu
     puts "------ROULETTE------"
-    puts "Welcome #{@player}, you currently have $#{$wallet}"
+    puts "Welcome #{@player}, you currently have $#{@wallet}"
     puts "Type 'help' at any time for rules"
     puts "type 'play' to start playing."
     puts "Type 'quit' to return to the Casino Manu"

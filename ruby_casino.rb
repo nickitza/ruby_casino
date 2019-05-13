@@ -1,12 +1,13 @@
 require "pry"
 require "colorize"
 require "require_all"
-#require "sounder"
 
 require_all 'classes'
 
 # require_relative 'classes/roulette.rb'
 # require_relative 'classes/player.rb'
+
+#require_all './classes'
 
 #casino 
     #requires player
@@ -41,7 +42,7 @@ class Casino < Player
             #######################################################################
         when 2
             #######################################################################
-            puts "play Hangman here when added. now back to main menu..."
+            # puts "play Hangman here when added. now back to main menu..."
             Hangman.new
             #######################################################################
         when 3
@@ -51,7 +52,7 @@ class Casino < Player
             #######################################################################
         when 4
             #######################################################################
-            puts "play Roulette here when added. now back to main menu..."
+            # puts "play Roulette here when added. now back to main menu..."
             Roulette.new
             #######################################################################
         when 5
@@ -118,4 +119,12 @@ class Casino < Player
     end 
 end
 
-Casino.new
+
+Player.new 
+binding.pry
+Player1 = Casino.new
+binging.pry
+Player1.main_menu
+#binding.pry
+
+#Player1.main_menu

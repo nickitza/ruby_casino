@@ -92,7 +92,7 @@ class Player < Wallet
         else
             puts
             puts
-            puts "Awesome! You'll be playing with an account balance of #{@wallet}. #{@player}, good luck!!"
+            # puts "Awesome! You'll be playing with an account balance of $#{@wallet}. #{@player}, good luck!!"
         end
     end
 end
