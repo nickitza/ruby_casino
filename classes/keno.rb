@@ -69,9 +69,9 @@ class Keno
         puts "--------------------------------------------------------------------------------"
         puts
         next_v = gets.strip
-        Keno.player_draw
+        player_draw
     end
-    def self.player_draw
+    def player_draw
         #binding.pry
         @random_fifteen = []
         puts "How many races would you like to play with your first 15-number draw?".colorize(:yellow)
@@ -87,9 +87,9 @@ class Keno
         puts "You're current draw is:".colorize(:yellow)
         puts "#{@random_fifteen}".colorize(:blue)
         puts "---------------------------------------------------------------------".colorize(:blue)
-        Keno.dealer_draw 
+        dealer_draw 
     end
-    def self.dealer_draw
+    def dealer_draw
         @random_twenty = []
         @payout = 0
         @races_number.times do |i|
@@ -112,14 +112,15 @@ class Keno
             puts "Number of common elements = #{length_common}".colorize(:green)
             puts "#{check_for_common}".colorize(:green)
             @current_payout = 0
-            # @Keno_payout.each.with_index do |element, i|
-            #     element.each do |value|
-            #         if value == length_common
-            #             element[:payout] = @current_payout
-            #             puts "current payout: #{@current_payout}"
-            #         end
-            #     end
-            # end
+            @keno_payout.each.with_index do |element, i|
+                element.each do |value|
+                    if value == length_common
+                        element[:payout] = @current_payout
+                        binding.pry
+                        puts "current payout: #{@current_payout}"
+                    end
+                end
+            end
         end
     end
     # puts "#{@random_fifteen}"
