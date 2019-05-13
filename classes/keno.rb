@@ -25,12 +25,12 @@ require 'colorize'
 
 @random_twenty = []
 @random_fifteen = []
-
 class Keno
     attr_accessor :keno_wallet
     def initialize(wallet)
         #wallet = @wallet 
-        @wallet = wallet
+        @keno_wallet = wallet
+        @keno_wallet = @keno_wallet.to_i
         #keno_wallet = @wallet
         @keno_payout = [{index: 1, payout: 1},{index: 2, payout: 4},
             {index: 3, payout: 6},{index: 4, payout: 8},{index: 6, payout: 10},
@@ -77,6 +77,8 @@ class Keno
         puts "How many races would you like to play with your first 15-number draw?".colorize(:yellow)
         puts "* reminder each race $1, slate of 7 races $7".colorize(:yellow)
         @races_number = gets.strip.to_i
+        @keno_wallet -= @races_number
+        puts "Your current balance = #{@keno_wallet}"
         15.times do
             # (1...15) do |a|
             #     rand(1...80)
@@ -118,14 +120,19 @@ class Keno
             @current_payout = payout_hash[:payout]
             @payouts_round += @current_payout 
         end
+        puts
+        puts
+        puts
+        puts
+        puts "--------------------------------------------------------"
         puts "Your winnings for your #{@races_number} Races is : $#{@payouts_round}"
-    end
-    def dealer_payout
+        @keno_wallet += @payouts_round
+        puts "Your new wallet balance is: $#{@keno_wallet}"
     end
 end
 
 
-Keno.new(0)
+#Keno.new(300)
 #Keno.player_draw
 
 # puts "#{@random_fifteen}"
