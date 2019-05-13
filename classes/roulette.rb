@@ -6,7 +6,7 @@
 
 require "pry"
 require "colorize"
-require "sounder"
+# require "sounder"
 # require_relative "ruby_casino.rb"
 
 class Roulette

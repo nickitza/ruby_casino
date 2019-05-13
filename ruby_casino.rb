@@ -11,11 +11,12 @@ require_all 'classes'
     #requires player
     #cashier here
     #game menu here
-
+#binding.pry
 class Casino < Player
     def initialize(wallet)
         @game_menu = ["Blackjack", "Hangman", "Slot Machine", "Roulette", "Keno"]
         @wallet = wallet
+        #Player.new
         main_menu
     end
     def main_menu
@@ -49,8 +50,9 @@ class Casino < Player
             Roulette.new(@wallet)
         when 5
             #######################################################################
-            puts "play Keno here when added. now back to main menu..."
-            main_menu
+            Keno.new(@wallet)
+            # puts "play Keno here when added. now back to main menu..."
+            # main_menu
             #######################################################################
         when 6
             quit_casino
@@ -119,4 +121,6 @@ class Casino < Player
     end 
 end
 
+Player.new
 Casino.new(0)
+binding.pry

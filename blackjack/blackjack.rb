@@ -1,10 +1,12 @@
 require 'pry'
+require 'require_all'
 # require './cards.rb'
 # # require './aces.rb'
 # require './wallet.rb'
 # Deck.new
 #
 # Wallet.new
+require_all '../../blackjack'
 
 class DealCard
 
@@ -104,5 +106,5 @@ end
 end
 
 
-@deal = DealCard.new
-@deal
+#@deal = DealCard.new
+
